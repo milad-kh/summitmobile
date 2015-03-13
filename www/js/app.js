@@ -20,26 +20,16 @@
       }
     });
   })
-  .controller('controller',function($scope)
+  .controller('controller',function($scope, $http)
   {
-    $scope.tasks = [
-      { title: 'مقاله ی اول' },
-      { title: 'مقاله ی دوم' },
-      { title: 'مقاله ی سوم' },
-      { title: 'مقاله ی سوم' },
-      { title: 'مقاله ی سوم' },
-      { title: 'مقاله ی سوم' },
-      { title: 'مقاله ی سوم' },
-      { title: 'مقاله ی سوم' },
-      { title: 'مقاله ی سوم' },
-      { title: 'مقاله ی سوم' },
-      { title: 'مقاله ی سوم' },
-      { title: 'مقاله ی سوم' },
-      { title: 'مقاله ی سوم' },
-      { title: 'مقاله ی سوم' },
-      { title: 'مقاله ی سوم' },
-      { title: 'مقاله ی سوم' },
-      { title: 'مقاله ی چهارم' }
-    ];
+      $http({
+        method: 'GET',
+        url:'http://www.summits.ir/showPostList.php'
+      }).success(function(data,status,headers,config){
+        $scope.tasks = data;
+      }).error(function(data,status,headers,config){
+        console.log(data);
+      });
+    
   })
 })(this.angular);
