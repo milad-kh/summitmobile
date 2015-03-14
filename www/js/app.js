@@ -26,7 +26,8 @@
         method: 'GET',
         url:'http://www.summits.ir/showPostList.php'
       }).success(function(data,status,headers,config){
-        $scope.tasks = data;
+        console.log(data);
+        $scope.posts = data;
       }).error(function(data,status,headers,config){
         console.log(data);
       });
