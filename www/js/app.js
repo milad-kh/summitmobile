@@ -32,5 +32,5 @@
         console.log(data);
       });
     
-  })
+  });
 })(this.angular);

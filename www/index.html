@@ -24,21 +24,47 @@
 
   </head>
   <body ng-app="starter" ng-controller="controller">
-  <ion-header-bar align-title="center" class="bar-positive">
-    <h1 class="title">summits</h1>    
+  <ion-side-menus>
+  <!-- Center content -->
+  <ion-side-menu-content>
+  <ion-header-bar align-title="left" class="bar-positive">
+    <div class="buttons">
+      <button class="button">دسته ای مقالات</button>
+    </div>
+    <h1 class="title">summits.ir</h1>
+    <div class="buttons">
+      <button class="button">تنظیمات</button>
+    </div>
   </ion-header-bar>
+    <ion-content>
+      <ion-list>    
+        <ion-item class="item item-thumbnail-left" href="#" ng-repeat="post in posts">
+          <!-- <img src="cover.jpg"> -->
+          <h2 ng-bind="post.post_title"></h2>
+          <p ng-bind="post.post_content"></p>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+    <ion-footer-bar align-title="left" class="bar-assertive">
+  <div class="buttons">
+    <button class="button">Left Button</button>
+  </div>
+  <h1 class="title">Title!</h1>
+  <div class="buttons">
+    <button class="button">Right Button</button>
+  </div>
+</ion-footer-bar>
+  </ion-side-menu-content>
 
-  <ion-content scroll="true">
-  <ion-list>    
-    <ion-item class="item item-thumbnail-left" href="#" ng-repeat="post in posts">
-      <!-- <img src="cover.jpg"> -->
-      <h2 ng-bind="post.post_title"></h2>
-      <p ng-bind="post.post_content"></p>
-    </ion-item>
-  </ion-list>
-  </ion-content>
-  <ion-footer-bar align-title="left" class="bar-assertive">
-    <h1 class="title">Title!</h1>    
-  </ion-footer-bar>
+  <!-- Left menu -->
+  <ion-side-menu side="left">
+  لیست دسته ها  
+  </ion-side-menu>
+
+  <!-- Right menu -->
+  <ion-side-menu side="right">
+  تنظیمات
+  </ion-side-menu>
+</ion-side-menus>
   </body>
 </html>
