@@ -22,9 +22,20 @@
   })
   .controller('controller',function($scope, $http)
   {
+    // request to get posts for main page
       $http({
         method: 'GET',
         url:'http://www.summits.ir/showPostList.php'
+      }).success(function(data,status,headers,config){
+        console.log(data);
+        $scope.posts = data;
+      }).error(function(data,status,headers,config){
+        console.log(data);
+      });
+      // request to get category list for left sidebar
+      $http({
+        method: 'GET',
+        url:'http://www.summits.ir/categoryList.php'
       }).success(function(data,status,headers,config){
         console.log(data);
         $scope.posts = data;
