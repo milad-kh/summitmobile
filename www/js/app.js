@@ -25,7 +25,7 @@
     // request to get posts for main page
       $http({
         method: 'GET',
-        url:'http://www.summits.ir/showPostList.php'
+        url:'http://www.summits.ir/apiToMobile/showPostList.php'
       }).success(function(data,status,headers,config){
         console.log(data);
         $scope.posts = data;
@@ -35,7 +35,7 @@
       // request to get category list for left sidebar
       $http({
         method: 'GET',
-        url:'http://www.summits.ir/showCategoryList.php'
+        url:'http://www.summits.ir/apiToMobile/showCategoryList.php'
       }).success(function(data,status,headers,config){
         console.log(data);
         $scope.categories = data;

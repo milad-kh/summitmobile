@@ -27,7 +27,7 @@
   <ion-side-menus>
   <!-- Center content -->
   <ion-side-menu-content>
-  <ion-header-bar align-title="left" class="bar-positive">
+  <ion-header-bar align-title="center" class="bar-positive">
     <div class="buttons">
       <button class="button">دسته ای مقالات</button>
     </div>
@@ -36,10 +36,11 @@
       <button class="button">تنظیمات</button>
     </div>
   </ion-header-bar>
+
     <ion-content>
       <ion-list>    
         <ion-item class="item item-thumbnail-left" href="#" ng-repeat="post in posts">
-          <!-- <img src="cover.jpg"> -->
+          <img src="{{post.thumbnail}}">
           <h2 ng-bind="post.post_title"></h2>
           <p ng-bind="post.post_content"></p>
         </ion-item>
@@ -58,7 +59,7 @@
 
   <!-- Left menu -->
   <ion-side-menu side="left">
-  <ion-header-bar align-title="left" class="bar-positive">   
+  <ion-header-bar align-title="center" class="bar-positive">   
     <h1 class="title">لیست دسته ها</h1>    
   </ion-header-bar>
     <ion-content>
