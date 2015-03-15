@@ -63,18 +63,9 @@
   </ion-header-bar>
     <ion-content>
        <ion-list>    
-          <ion-item class="item item-thumbnail-left" href="#">
-            <p> cat 1</p>
-          </ion-item>
-          <ion-item class="item item-thumbnail-left" href="#">
-            <p> cat 2</p>
-          </ion-item>
-          <ion-item class="item item-thumbnail-left" href="#">
-            <p> cat 3</p>
-          </ion-item>
-          <ion-item class="item item-thumbnail-left" href="#">
-            <p> cat 4</p>
-          </ion-item>
+          <ion-item class="item item-thumbnail-left" href="#" ng-repeat="category in categories">
+            <p ng-bind="category.cat_name"></p>
+          </ion-item>                
         </ion-list>
     </ion-content>      
   </ion-side-menu>

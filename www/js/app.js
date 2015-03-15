@@ -35,10 +35,10 @@
       // request to get category list for left sidebar
       $http({
         method: 'GET',
-        url:'http://www.summits.ir/categoryList.php'
+        url:'http://www.summits.ir/showCategoryList.php'
       }).success(function(data,status,headers,config){
         console.log(data);
-        $scope.posts = data;
+        $scope.categories = data;
       }).error(function(data,status,headers,config){
         console.log(data);
       });
