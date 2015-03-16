@@ -46,14 +46,13 @@
         </ion-item>
       </ion-list>
     </ion-content>
-    <ion-footer-bar align-title="left" class="bar-assertive">
-  <div class="buttons">
-    <button class="button">Left Button</button>
+
+    <ion-footer-bar align-title="right" class="bar-assertive">
+  
+  <div class="buttons" align="left">
+    <button class="button">به روز رسانی برنامه</button>
   </div>
-  <h1 class="title">Title!</h1>
-  <div class="buttons">
-    <button class="button">Right Button</button>
-  </div>
+  <h1 class="title" align="right">مقالات جدید وجود دارد</h1>
 </ion-footer-bar>
   </ion-side-menu-content>
 
@@ -63,7 +62,10 @@
     <h1 class="title">لیست دسته ها</h1>    
   </ion-header-bar>
     <ion-content>
-       <ion-list>    
+       <ion-list>  
+          <ion-item ng-click="getPost()" class="item item-thumbnail-left" href="#">
+            <p>همه ی مقالات</p>
+          </ion-item>  
           <ion-item ng-click="getPost(this.$parent.category.cat_ID)" class="item item-thumbnail-left" href="#" ng-repeat="category in categories">
             <p ng-bind="category.cat_name"></p>
           </ion-item>                
