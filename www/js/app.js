@@ -25,7 +25,7 @@
     // request to get posts for main page
       $http({
         method: 'GET',
-        url:'http://www.summits.ir/apiToMobile/showPostList.php'
+        url:'http://www.summits.ir/apiToMobile/showPostList.php?catID=0'
       }).success(function(data,status,headers,config){
         console.log(data);
         $scope.posts = data;
@@ -42,6 +42,19 @@
       }).error(function(data,status,headers,config){
         console.log(data);
       });
+
+      $scope.getPost = function (categoryId)
+      {
+         $http({
+          method: 'GET',
+          url:'http://www.summits.ir/apiToMobile/showPostList.php?catID=' + categoryId
+          }).success(function(data,status,headers,config){
+            console.log(data);
+            $scope.posts = data;
+          }).error(function(data,status,headers,config){
+            console.log(data);
+          });
+      }
     
   });
 })(this.angular);

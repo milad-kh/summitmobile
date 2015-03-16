@@ -64,7 +64,7 @@
   </ion-header-bar>
     <ion-content>
        <ion-list>    
-          <ion-item class="item item-thumbnail-left" href="#" ng-repeat="category in categories">
+          <ion-item ng-click="getPost(this.$parent.category.cat_ID)" class="item item-thumbnail-left" href="#" ng-repeat="category in categories">
             <p ng-bind="category.cat_name"></p>
           </ion-item>                
         </ion-list>
