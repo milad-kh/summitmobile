@@ -6,6 +6,7 @@
 (function(ng)
 {
   var
+  
   init = function ()
   {
     ng
@@ -23,10 +24,10 @@
         }
       });
     })
-    .controller('controller', controller);
+    .controller('controller', Controller);
   },
 
-  getNewData= function ()
+  getNewData= function ($localstorage, $scope, $http)
   {
     $http({
       method: 'GET',
@@ -54,11 +55,21 @@
     });
   },
 
+  isUpdateAvailable = function ($localstorage, $scope, $http)
+  {
+    var lastPostIdInLocal = $localstorage.getObject('posts')[0].ID;
+    console.log('biggest ID is %s', lastPostIdInLocal);
+    var lastPostIdInSummit = 2000;
+    if (lastPostIdInLocal < lastPostIdInSummit)
+      this.getNewData();
+  },
+
   Controller = function($localstorage, $scope, $http)
   {
       $scope.posts = $localstorage.getObject('posts');
-      if (1 > 2)
-        getNewData();
+
+      if (isUpdateAvailable($localstorage, $scope, $http))
+        getNewData($localstorage, $scope, $http);
       else
         console.warn('database is up to date');
    
@@ -72,14 +83,13 @@
       }).error(function(data,status,headers,config){
         console.log('error in get categories');
       });
-
-      
-    
+        
   }
   ;
   ng.extend(Controller.prototype,{
     getNewData: getNewData,
-    getPost: getPost
+    getPost: getPost,
+    isUpdateAvailable: isUpdateAvailable
   });
 
   init();
