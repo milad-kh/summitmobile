@@ -5,56 +5,82 @@
 // the 2nd parameter is an array of 'requires'
 (function(ng)
 {
-  ng
-  .module('starter', ['ionic'])
-  .run(function($ionicPlatform)
+  var
+  init = function ()
   {
-    $ionicPlatform.ready(function() {
-      // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-      // for form inputs)
-      if(window.cordova && window.cordova.plugins.Keyboard) {
-        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-      }
-      if(window.StatusBar) {
-        StatusBar.styleDefault();
-      }
-    });
-  })
-  .controller('controller',function($scope, $http)
-  {
-    // request to get posts for main page
-      $http({
-        method: 'GET',
-        url:'http://www.summits.ir/apiToMobile/showPostList.php?catID=0'
-      }).success(function(data,status,headers,config){
-        console.log(data);
-        $scope.posts = data;
-      }).error(function(data,status,headers,config){
-        console.log(data);
+    ng
+    .module('starter', ['localStorage', 'ionic'])
+    .run(function($ionicPlatform)
+    {
+      $ionicPlatform.ready(function() {
+        // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+        // for form inputs)
+        if(window.cordova && window.cordova.plugins.Keyboard) {
+          cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+        }
+        if(window.StatusBar) {
+          StatusBar.styleDefault();
+        }
       });
-      // request to get category list for left sidebar
+    })
+    .controller('controller', controller);
+  },
+
+  getNewData= function ()
+  {
+    $http({
+      method: 'GET',
+      url:'http://www.summits.ir/apiToMobile/showPostList.php?catID=0'
+    }).success(function(data,status,headers,config){
+      
+      $localstorage.setObject('posts', data);
+      $scope.posts = $localstorage.getObject('posts');
+
+    }).error(function(data,status,headers,config){
+      console.log('error in get posts');
+    });
+  },
+
+  getPost = function (categoryId)
+  {
+   $http({
+    method: 'GET',
+    url:'http://www.summits.ir/apiToMobile/showPostList.php?catID=' + categoryId
+    }).success(function(data,status,headers,config){
+      console.log(data);
+      $scope.posts = data;
+    }).error(function(data,status,headers,config){
+      console.log(data);
+    });
+  },
+
+  Controller = function($localstorage, $scope, $http)
+  {
+      $scope.posts = $localstorage.getObject('posts');
+      if (1 > 2)
+        getNewData();
+      else
+        console.warn('database is up to date');
+   
       $http({
         method: 'GET',
         url:'http://www.summits.ir/apiToMobile/showCategoryList.php'
       }).success(function(data,status,headers,config){
-        console.log(data);
+        
         $scope.categories = data;
+
       }).error(function(data,status,headers,config){
-        console.log(data);
+        console.log('error in get categories');
       });
 
-      $scope.getPost = function (categoryId)
-      {
-         $http({
-          method: 'GET',
-          url:'http://www.summits.ir/apiToMobile/showPostList.php?catID=' + categoryId
-          }).success(function(data,status,headers,config){
-            console.log(data);
-            $scope.posts = data;
-          }).error(function(data,status,headers,config){
-            console.log(data);
-          });
-      }
+      
     
+  }
+  ;
+  ng.extend(Controller.prototype,{
+    getNewData: getNewData,
+    getPost: getPost
   });
+
+  init();
 })(this.angular);
