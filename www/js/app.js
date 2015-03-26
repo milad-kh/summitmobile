@@ -59,26 +59,26 @@
   {
 
     var
-      lastPostIdInLocal = $localstorage.getObject('posts')[0].ID,
-      lastPostIdInSummit,
-      flag = false;
+      lastPostIdInLocal = $localstorage.getObject('posts')[0].ID;      
 
     console.log('biggest ID on browser storage is %s', lastPostIdInLocal);
     // we should find last article ID
       $http({
       method: 'GET',
       url:'http://www.summits.ir/apiToMobile/lastPostID.php'
-      }).success(function(data,status,headers,config){
-        lastPostIdInSummit = data;
-        if (lastPostIdInLocal < lastPostIdInSummit)
-          {
-            flag = true;
-          }
+      }).success(function(data,status,headers,config){        
+        if (lastPostIdInLocal < data)
+        {
+          console.log('baba bauad ejra shi alan dayyuss');
+          $scope.blaw = true;
+          console.log($scope.blaw);
+        }
+        else
+          $scope.blaw = false;    
       }).error(function(data,status,headers,config){
         console.log('error in check update');
       });    
-    //        
-    console.log('finally flag is ', flag);
+    //        https://static.bia2.com/music/src/Amir-Tataloo_Joft-Shish_1427341285.mp3?bghttp_Content-Disposition=attachment&bghttp_Content-Type=application/octet-stream&bghttp_Content-Transfer-Encoding=binary
   },
 
   Controller = function($localstorage, $scope, $http)
@@ -89,13 +89,7 @@
       else
         console.log('request not sent because storage has data');
       // check for update
-      if (isUpdateAvailable($localstorage, $scope, $http))
-        {
-          console.log('database is not up to date');
-          getNewData($localstorage, $scope, $http);
-        }
-      else
-        console.warn('database is up to date');
+      isUpdateAvailable($localstorage, $scope, $http);      
    
       /*$http({
         method: 'GET',
