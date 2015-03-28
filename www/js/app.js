@@ -57,9 +57,8 @@
 
   isUpdateAvailable = function ($localstorage, $scope, $http)
   {
-
     var
-      lastPostIdInLocal = $localstorage.getObject('posts')[0].ID;      
+      lastPostIdInLocal = $localstorage.getObject('posts')[0].ID;
 
     console.log('biggest ID on browser storage is %s', lastPostIdInLocal);
     // we should find last article ID
@@ -68,10 +67,8 @@
       url:'http://www.summits.ir/apiToMobile/lastPostID.php'
       }).success(function(data,status,headers,config){        
         if (lastPostIdInLocal < data)
-        {
-          console.log('baba bauad ejra shi alan dayyuss');
-          $scope.blaw = true;
-          console.log($scope.blaw);
+        {          
+          $scope.showUpdateButton = true;          
         }
         else
           $scope.blaw = false;    
@@ -83,24 +80,29 @@
 
   Controller = function($localstorage, $scope, $http)
   {
-      $scope.posts = $localstorage.getObject('posts');      
-      if ($scope.posts != true && $scope.posts.length < 1)    // here request for direct get, without browser storage                   
-        getNewData($localstorage, $scope, $http);
-      else
-        console.log('request not sent because storage has data');
-      // check for update
-      isUpdateAvailable($localstorage, $scope, $http);      
-   
-      /*$http({
-        method: 'GET',
-        url:'http://www.summits.ir/apiToMobile/showCategoryList.php'
-      }).success(function(data,status,headers,config){
-        
-        $scope.categories = data;
+    $scope.updateArticles=function()
+    {
+      console.log('it\'s ok milad');
+    };
 
-      }).error(function(data,status,headers,config){
-        console.log('error in get categories');
-      });*/
+    $scope.posts = $localstorage.getObject('posts');      
+    if ($scope.posts != true && $scope.posts.length < 1)    // here request for direct get, without browser storage                   
+      getNewData($localstorage, $scope, $http);
+    else
+      console.log('request not sent because storage has data');
+    // check for update
+    isUpdateAvailable($localstorage, $scope, $http);      
+ 
+    /*$http({
+      method: 'GET',
+      url:'http://www.summits.ir/apiToMobile/showCategoryList.php'
+    }).success(function(data,status,headers,config){
+      
+      $scope.categories = data;
+
+    }).error(function(data,status,headers,config){
+      console.log('error in get categories');
+    });*/
         
   }
   ;
