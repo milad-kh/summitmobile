@@ -32,13 +32,13 @@
     $http({
       method: 'GET',
       url:'http://www.summits.ir/apiToMobile/showPostList.php?catID=0'
-    }).success(function(data,status,headers,config){      
+    }).success(function(data,status,headers,config){
       $localstorage.setObject('posts', data);
       $scope.posts = $localstorage.getObject('posts');
 
     }).error(function(data,status,headers,config){
       console.log('error in get posts');
-    });    
+    });
     console.log('request sent because storage is empty!') ;
   },
 
@@ -65,16 +65,16 @@
       $http({
       method: 'GET',
       url:'http://www.summits.ir/apiToMobile/lastPostID.php'
-      }).success(function(data,status,headers,config){        
+      }).success(function(data,status,headers,config){
         if (lastPostIdInLocal < data)
-        {          
-          $scope.showUpdateButton = true;          
+        {
+          $scope.showUpdateButton = true;
         }
         else
-          $scope.blaw = false;    
+          $scope.blaw = false;
       }).error(function(data,status,headers,config){
         console.log('error in check update');
-      });    
+      });
     //        https://static.bia2.com/music/src/Amir-Tataloo_Joft-Shish_1427341285.mp3?bghttp_Content-Disposition=attachment&bghttp_Content-Type=application/octet-stream&bghttp_Content-Transfer-Encoding=binary
   },
 
@@ -85,13 +85,13 @@
       console.log('it\'s ok milad');
     };
 
-    $scope.posts = $localstorage.getObject('posts');      
-    if ($scope.posts != true && $scope.posts.length < 1)    // here request for direct get, without browser storage                   
+    $scope.posts = $localstorage.getObject('posts');
+    if (typeof($scope.posts.length) == 'undefined')    // here request for direct get, without browser storage
       getNewData($localstorage, $scope, $http);
     else
       console.log('request not sent because storage has data');
     // check for update
-    isUpdateAvailable($localstorage, $scope, $http);      
+    isUpdateAvailable($localstorage, $scope, $http);
  
     /*$http({
       method: 'GET',
