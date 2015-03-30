@@ -82,6 +82,7 @@
   {
     $scope.updateArticles=function()
     {
+      console.log('it\'s ok milad');
       var
       lastPostIdInLocal = $localstorage.getObject('posts')[0].ID;
       console.log('last post id:', lastPostIdInLocal);
