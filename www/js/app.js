@@ -28,7 +28,7 @@
   },
 
   getNewData= function ($localstorage, $scope, $http)
-  {   
+  {
     $http({
       method: 'GET',
       url:'http://www.summits.ir/apiToMobile/showPostList.php?catID=0'
