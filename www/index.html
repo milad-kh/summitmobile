@@ -40,6 +40,7 @@
   </ion-header-bar>
 
     <ion-content>
+      <div>
       <ion-list>    
         <ion-item class="item item-thumbnail-left" href="#" ng-repeat="post in posts">
           <img src="{{post.thumbnail}}">
@@ -47,7 +48,25 @@
           <p ng-bind="post.post_content"></p>
         </ion-item>
       </ion-list>
+      <ion-infinite-scroll
+        on-infinite="loadmore()"
+        distance="1%"
+        >
+      </ion-infinite-scroll>
+    </div>
+    <div ng-show="false">
+      <div class="card">
+        <div class="item item-text-wrap">
+          بانک اطلاعات خالی است
+        </div>
+      </div>
+      <button class="button button-balanced">
+        به روز رسانی برنامه
+      </button>
+    </div>
     </ion-content>
+
+  
 
     <ion-footer-bar align-title="right" class="bar-assertive">
   

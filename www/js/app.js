@@ -80,6 +80,12 @@
 
   Controller = function($localstorage, $scope, $http)
   {
+    $scope.loadmore=function()
+    {
+      console.log('loading more data...');
+      
+    };
+
     $scope.updateArticles=function()
     {
       var
