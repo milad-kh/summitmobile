@@ -71,7 +71,10 @@
       return true;
     };
 
+    if($scope.isUpdateAvailable())
+      $scope.showUpdateButton = true;
     else
+      $scope.showUpdateButton = false;
     $scope.fillLocalWithData = function()
     {
       $http({
