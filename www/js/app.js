@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-(function(ng)
+(function(ng, _)
 {
   var
 
@@ -25,108 +25,67 @@
       });
     })
     .controller('controller', Controller);
-  },
-
-  getNewData= function ($localstorage, $scope, $http)
-  {
-    $http({
-      method: 'GET',
-      url:'http://www.summits.ir/apiToMobile/showPostList.php?catID=0'
-    }).success(function(data,status,headers,config){
-      $localstorage.setObject('posts', data);
-      $scope.posts = $localstorage.getObject('posts');
-
-    }).error(function(data,status,headers,config){
-      console.log('error in get posts');
-    });
-    console.log('request sent because storage is empty!') ;
-  },
-
-  getPost = function (categoryId)
-  {
-   $http({
-    method: 'GET',
-    url:'http://www.summits.ir/apiToMobile/showPostList.php?catID=' + categoryId
-    }).success(function(data,status,headers,config){
-      console.log(data);
-      $scope.posts = data;
-    }).error(function(data,status,headers,config){
-      console.log(data);
-    });
-  },
-
-  isUpdateAvailable = function ($localstorage, $scope, $http)
-  {
-    var
-      lastPostIdInLocal = $localstorage.getObject('posts')[0].ID;
-
-    console.log('biggest ID on browser storage is %s', lastPostIdInLocal);
-    // we should find last article ID
-      $http({
-      method: 'GET',
-      url:'http://www.summits.ir/apiToMobile/lastPostID.php'
-      }).success(function(data,status,headers,config){
-        if (lastPostIdInLocal < data)
-        {
-          $scope.showUpdateButton = true;
-        }
-        else
-          $scope.blaw = false;
-      }).error(function(data,status,headers,config){
-        console.log('error in check update');
-      });
-    //        https://static.bia2.com/music/src/Amir-Tataloo_Joft-Shish_1427341285.mp3?bghttp_Content-Disposition=attachment&bghttp_Content-Type=application/octet-stream&bghttp_Content-Transfer-Encoding=binary
-  },
-
+  },  
+  
   Controller = function($localstorage, $scope, $http)
   {
-    $scope.loadmore=function()
+    $scope.showCategories = function()
     {
-      console.log('loading more data...');
       
-    };
-
-    $scope.updateArticles=function()
-    {
-      var
-      lastPostIdInLocal = $localstorage.getObject('posts')[0].ID;
-      console.log('last post id:', lastPostIdInLocal);
       $http({
-      method: 'GET',
-      url:'http://www.summits.ir/apiToMobile/updateMyPosts.php?startPostID='+lastPostIdInLocal
-      }).success(function(data,status,headers,config){
-        console.log('new data is :',data);
+        method: 'GET',
+        url:'http://www.summits.ir/apiToMobile/showCategoryList.php'
+      }).success(function(data,status,headers,config){      
+        $scope.categories = data;
       }).error(function(data,status,headers,config){
-        console.log('error in update!');
+        console.log('error in get categories');
       });
+
+    };
+    $scope.showCategories();
+    $scope.doesLocalHasData = function()
+    {
+      var localData = $localstorage.getObject('posts');
+      if (_.isEmpty(localData))
+        return false;
+      else
+        return true;
     };
 
-    $scope.posts = $localstorage.getObject('posts');
-    if (typeof($scope.posts.length) == 'undefined')    // here request for direct get, without browser storage
-      getNewData($localstorage, $scope, $http);
+    if ($scope.doesLocalHasData())
+    {      
+      console.log('local is full of data');       
+      $scope.posts = $localstorage.getObject('posts'); 
+      $scope.showUpdateMessage = false;
+      $scope.showArticleList = true;     
+    }
     else
-      console.log('request not sent because storage has data');
-    // check for update
-    isUpdateAvailable($localstorage, $scope, $http);
- 
-    /*$http({
-      method: 'GET',
-      url:'http://www.summits.ir/apiToMobile/showCategoryList.php'
-    }).success(function(data,status,headers,config){
-      
-      $scope.categories = data;
+    {
+      console.log('local is empty'); 
+      $scope.showUpdateMessage = true;
+      $scope.showArticleList = false;
+    };
 
-    }).error(function(data,status,headers,config){
-      console.log('error in get categories');
-    });*/
+    $scope.fillLocalWithData = function()
+    {
+      $http({
+        method: 'GET',
+        url:'http://www.summits.ir/apiToMobile/showPostList.php?catID=0'
+      }).success(function(data,status,headers,config){
         
-  }
-  ;
-  ng.extend(Controller.prototype,{
-    getNewData: getNewData,
-    getPost: getPost,
-    isUpdateAvailable: isUpdateAvailable
-  });
+        $localstorage.setObject('posts', data);
+        $scope.posts = $localstorage.getObject('posts');
+        
+        console.log('local is full of data'); 
+        $scope.showUpdateMessage = false;
+        $scope.showArticleList = true;
 
+      }).error(function(data,status,headers,config){
+        console.log('error in get posts');
+      });
+    }
+  }
+  ;  
+  
   init();
-})(this.angular);
+})(this.angular, this._);
