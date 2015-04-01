@@ -30,8 +30,7 @@
   Controller = function($localstorage, $scope, $http)
   {
     $scope.showCategories = function()
-    {
-      
+    {      
       $http({
         method: 'GET',
         url:'http://www.summits.ir/apiToMobile/showCategoryList.php'
@@ -40,9 +39,10 @@
       }).error(function(data,status,headers,config){
         console.log('error in get categories');
       });
-
     };
+
     $scope.showCategories();
+    
     $scope.doesLocalHasData = function()
     {
       var localData = $localstorage.getObject('posts');
@@ -66,6 +66,12 @@
       $scope.showArticleList = false;
     };
 
+    $scope.isUpdateAvailable = function()
+    {
+      return true;
+    };
+
+    else
     $scope.fillLocalWithData = function()
     {
       $http({
