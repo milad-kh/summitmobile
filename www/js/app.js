@@ -68,13 +68,46 @@
 
     $scope.isUpdateAvailable = function()
     {
-      return true;
+      var
+      lastPostIdInLocal = $localstorage.getObject('posts')[0].ID;
+      console.log('biggest ID on browser storage is %s', lastPostIdInLocal);
+      // we should- find last article ID in summits.ir
+      $http({
+      method: 'GET',
+      url:'http://www.summits.ir/apiToMobile/lastPostID.php'
+      }).success(function(data,status,headers,config){
+        console.log('biggest ID on net is : '+data);
+        if (data > lastPostIdInLocal)
+        {
+          console.log('alan umad b true');
+          $scope.showUpdateButton = true;          
+        }
+        else        
+        {
+          console.log('alan umad b false')
+          $scope.showUpdateButton = true;        
+        }
+      }).error(function(data,status,headers,config){
+        console.log('error in check update');
+      })      
+      
+    };
+    $scope.isUpdateAvailable();    
+    $scope.updateArticles = function()
+    {
+      var
+      lastPostIdInLocal = $localstorage.getObject('posts')[0].ID;
+      console.log('last post id:', lastPostIdInLocal);
+      $http({
+        method: 'GET',
+        url:'http://www.summits.ir/apiToMobile/updateMyPosts.php?startPostID='+lastPostIdInLocal
+      }).success(function(data,status,headers,config){
+        console.log('new data is :',data);
+      }).error(function(data,status,headers,config){
+        console.log('error in update!');
+      });
     };
 
-    if($scope.isUpdateAvailable())
-      $scope.showUpdateButton = true;
-    else
-      $scope.showUpdateButton = false;
     $scope.fillLocalWithData = function()
     {
       $http({
