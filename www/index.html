@@ -89,7 +89,7 @@
   </ion-header-bar>
     <ion-content>
        <ion-list>  
-          <ion-item ng-click="getPost()" class="item item-thumbnail-left" href="#">
+          <ion-item ng-click="filterPostsByCategory('all')" class="item item-thumbnail-left" href="#">
             <p>همه ی مقالات</p>
           </ion-item>  
           <ion-item ng-click="filterPostsByCategory(this.$parent.category.cat_ID)" class="item item-thumbnail-left" href="#" ng-repeat="category in categories">

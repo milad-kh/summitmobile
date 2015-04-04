@@ -158,19 +158,26 @@
 
     $scope.filterPostsByCategory = function(input)
     {
-      $scope.posts = $localstorage.getObject('posts');
-      var catID = input;
-      var currentCategoryPosts = [];
-      ng.forEach($scope.posts, function(article){
-        ng.forEach(article.catId, function(oneOfCatId){
-          if (catID == oneOfCatId.cat_ID)
-          {
-            console.log('ok');
-            currentCategoryPosts.push(article);
-          }
-        })
-      });
-      $scope.posts = currentCategoryPosts;
+      if (input == 'all')
+      {
+        $scope.posts = $localstorage.getObject('posts');
+      }
+      else
+      {
+        $scope.posts = $localstorage.getObject('posts');
+        var catID = input;
+        var currentCategoryPosts = [];
+        ng.forEach($scope.posts, function(article){
+          ng.forEach(article.catId, function(oneOfCatId){
+            if (catID == oneOfCatId.cat_ID)
+            {
+              console.log('ok');
+              currentCategoryPosts.push(article);
+            }
+          })
+        });
+        $scope.posts = currentCategoryPosts;
+      }
     },
 
     $scope.showScope = function()
