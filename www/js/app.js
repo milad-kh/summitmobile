@@ -80,19 +80,18 @@
         if (data > lastPostIdInLocal)
         {
           console.log('alan umad b true');
-          $scope.showUpdateButton = true;          
+          $scope.showUpdateButton = true;
         }
-        else        
+        else
         {
-          console.log('alan umad b false')
-          $scope.showUpdateButton = true;        
+          console.log('alan umad b false');
+          $scope.showUpdateButton = true;
         }
       }).error(function(data,status,headers,config){
         console.log('error in check update');
-      })      
-      
+      });
     };
-    $scope.isUpdateAvailable();    
+    $scope.isUpdateAvailable();
     $scope.updateArticles = function()
     {
       var
