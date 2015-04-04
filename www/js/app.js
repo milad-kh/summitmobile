@@ -154,7 +154,29 @@
       }).error(function(data,status,headers,config){
         console.log('error in get posts');
       });
-    };
+    },
+
+    $scope.filterPostsByCategory = function(input)
+    {
+      $scope.posts = $localstorage.getObject('posts');
+      var catID = input;
+      var currentCategoryPosts = [];
+      ng.forEach($scope.posts, function(article){
+        ng.forEach(article.catId, function(oneOfCatId){
+          if (catID == oneOfCatId.cat_ID)
+          {
+            console.log('ok');
+            currentCategoryPosts.push(article);
+          }
+        })
+      });
+      $scope.posts = currentCategoryPosts;
+    },
+
+    $scope.showScope = function()
+    {
+      console.log($scope.posts);
+    }
   }
   ;
   
