@@ -87,7 +87,7 @@
     $scope.isUpdateAvailable = function()
     {
       var
-      lastPostIdInLocal = $localstorage.getObject('posts')[0].ID;
+      lastPostIdInLocal = 2000 ;//$localstorage.getObject('posts')[0].ID;
       console.log('biggest ID on browser storage is %s', lastPostIdInLocal);
       // we should- find last article ID in summits.ir
       $http({
