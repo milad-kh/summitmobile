@@ -7,6 +7,10 @@
 {
   var
 
+  /**
+   * [init description]
+   * @return {[type]} [description]
+   */
   init = function ()
   {
     ng
@@ -25,16 +29,22 @@
       });
     })
     .controller('controller', Controller);
-  },  
+  },
   
+  /**
+   * [Controller description]
+   * @param {[type]} $localstorage [description]
+   * @param {[type]} $scope        [description]
+   * @param {[type]} $http         [description]
+   */
   Controller = function($localstorage, $scope, $http)
   {
     $scope.showCategories = function()
-    {      
+    {
       $http({
         method: 'GET',
         url:'http://www.summits.ir/apiToMobile/showCategoryList.php'
-      }).success(function(data,status,headers,config){      
+      }).success(function(data,status,headers,config){
         $scope.categories = data;
       }).error(function(data,status,headers,config){
         console.log('error in get categories');
@@ -43,6 +53,10 @@
 
     $scope.showCategories();
     
+    /**
+     * [doesLocalHasData description]
+     * @return {[type]} [description]
+     */
     $scope.doesLocalHasData = function()
     {
       var localData = $localstorage.getObject('posts');
@@ -53,19 +67,23 @@
     };
 
     if ($scope.doesLocalHasData())
-    {      
-      console.log('local is full of data');       
-      $scope.posts = $localstorage.getObject('posts'); 
+    {
+      console.log('local is full of data');
+      $scope.posts = $localstorage.getObject('posts');
       $scope.showUpdateMessage = false;
-      $scope.showArticleList = true;     
+      $scope.showArticleList = true;
     }
     else
     {
-      console.log('local is empty'); 
+      console.log('local is empty');
       $scope.showUpdateMessage = true;
       $scope.showArticleList = false;
-    };
+    }
 
+    /**
+     * [isUpdateAvailable description]
+     * @return {Boolean} [description]
+     */
     $scope.isUpdateAvailable = function()
     {
       var
@@ -92,6 +110,11 @@
       });
     };
     $scope.isUpdateAvailable();
+
+    /**
+     * [updateArticles description]
+     * @return {[type]} [description]
+     */
     $scope.updateArticles = function()
     {
       var
@@ -102,11 +125,18 @@
         url:'http://www.summits.ir/apiToMobile/updateMyPosts.php?startPostID='+lastPostIdInLocal
       }).success(function(data,status,headers,config){
         console.log('new data is :',data);
+        var newPosts = data.concat($scope.posts);
+        $scope.posts = newPosts;
+        $localstorage.setObject('posts', $scope.posts);
       }).error(function(data,status,headers,config){
         console.log('error in update!');
       });
     };
 
+    /**
+     * [fillLocalWithData description]
+     * @return {[type]} [description]
+     */
     $scope.fillLocalWithData = function()
     {
       $http({
@@ -117,16 +147,16 @@
         $localstorage.setObject('posts', data);
         $scope.posts = $localstorage.getObject('posts');
         
-        console.log('local is full of data'); 
+        console.log('local is full of data');
         $scope.showUpdateMessage = false;
         $scope.showArticleList = true;
 
       }).error(function(data,status,headers,config){
         console.log('error in get posts');
       });
-    }
+    };
   }
-  ;  
+  ;
   
   init();
 })(this.angular, this._);
