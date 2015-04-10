@@ -28,7 +28,23 @@
         }
       });
     })
-    .controller('controller', Controller);
+    .controller('controller', Controller)
+    .config(function($stateProvider) {
+      $stateProvider
+      
+      .state('index', {
+        url: '/',
+        templateUrl: 'index.html'
+      })
+      .state('aboutus', {
+        url: '/aboutus',
+        templateUrl: 'aboutus.html'
+      })
+      .state('ourservices', {
+        url: '/ourservices',
+        templateUrl: 'ourservices.html'
+      });
+    });
   },
   
   /**
