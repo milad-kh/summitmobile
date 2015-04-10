@@ -29,21 +29,12 @@
       });
     })
     .controller('controller', Controller)
-    .config(function($stateProvider) {
-      $stateProvider
-
-      .state('index', {
+    .config(function($stateProvider, $urlRouterProvider) {
+      $urlRouterProvider.otherwise('/')
+      $stateProvider.state('home', {
         url: '/',
-        templateUrl: 'index.html'
+        template: '<p>Hello, world!</p>'
       })
-      .state('aboutus', {
-        url: '/aboutus',
-        templateUrl: 'aboutus.html'
-      })
-      .state('ourservices', {
-        url: '/ourservices',
-        templateUrl: 'ourservices.html'
-      });
     });
   },
   
