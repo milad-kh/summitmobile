@@ -31,7 +31,7 @@
     .controller('controller', Controller)
     .config(function($stateProvider) {
       $stateProvider
-      
+
       .state('index', {
         url: '/',
         templateUrl: 'index.html'
@@ -53,8 +53,28 @@
    * @param {[type]} $scope        [description]
    * @param {[type]} $http         [description]
    */
-  Controller = function($localstorage, $scope, $http)
+  Controller = function($localstorage, $scope, $http, $ionicActionSheet, $timeout)
   {
+    $scope.showActionsheet = function() {
+    
+      $ionicActionSheet.show({
+        titleText: 'قصد انجام چه کاری را دارید؟',
+        cancelText: 'Cancel',
+        cancel: function() {
+          console.log('CANCELLED');
+        },
+        buttons: [
+          { text: 'Share' },
+          { text: '<i class="icon ion-arrow-move"></i> Move' },
+        ],
+        buttonClicked: function(index) {
+          alert('BUTTON CLICKED' + index);
+          return true; //Close the model?
+        }
+      });
+      
+    };
+
     $scope.showCategories = function()
     {
       $http({
