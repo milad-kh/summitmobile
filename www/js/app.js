@@ -30,11 +30,47 @@
     })
     .controller('controller', Controller)
     .config(function($stateProvider, $urlRouterProvider) {
-      $urlRouterProvider.otherwise('/')
-      $stateProvider.state('home', {
-        url: '/',
-        template: '<p>Hello, world!</p>'
+      
+      $stateProvider
+      
+      .state('home', {
+        url: '/home',
+        views: {
+          'home': {
+            templateUrl: 'templates/home.html',
+            controller: Controller
+            }
+        }
       })
+
+      .state('contactus', {
+        url: '/contactus',
+        views: {
+          'contactus': {
+            templateUrl: 'templates/contactus.html'
+            }
+        }
+      })
+
+      .state('aboutus', {
+        url: '/aboutus',
+        views: {
+          'aboutus': {
+            templateUrl: 'templates/aboutus.html'
+            }
+        }
+      })
+      
+      .state('ourservices', {
+        url: '/ourservices',
+        views: {
+          'ourservices': {
+            templateUrl: 'templates/ourservices.html'
+            }
+        }
+      })
+
+      $urlRouterProvider.otherwise('/');
     });
   },
   
@@ -46,8 +82,8 @@
    */
   Controller = function($localstorage, $scope, $http, $ionicActionSheet, $timeout)
   {
-    $scope.showActionsheet = function() {
-    
+
+    $scope.showActionsheet = function() {    
       $ionicActionSheet.show({
         titleText: 'قصد انجام چه کاری را دارید؟',
         cancelText: 'Cancel',
@@ -55,15 +91,14 @@
           console.log('CANCELLED');
         },
         buttons: [
-          { text: 'Share' },
-          { text: '<i class="icon ion-arrow-move"></i> Move' },
+          { text: 'دربار ما' },
+          { text: '<i class="icon ion-arrow-move"></i> Move' }          
         ],
         buttonClicked: function(index) {
           alert('BUTTON CLICKED' + index);
           return true; //Close the model?
         }
-      });
-      
+      });    
     };
 
     $scope.showCategories = function()
