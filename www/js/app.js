@@ -14,7 +14,7 @@
   init = function ()
   {
     ng
-    .module('starter', ['localStorage', 'ionic'])
+    .module('starter', ['localStorage', 'ui.router', 'ionic'])
     .run(function($ionicPlatform)
     {
       $ionicPlatform.ready(function() {
@@ -28,9 +28,9 @@
         }
       });
     })
-    .controller('controller', Controller)
+    .controller('controller', ['$state', Controller])
     .config(function($stateProvider, $urlRouterProvider) {
-      
+      // console.log($state);
       $stateProvider
       
       .state('home', {
@@ -80,19 +80,42 @@
    * @param {[type]} $scope        [description]
    * @param {[type]} $http         [description]
    */
-  Controller = function($localstorage, $scope, $http, $ionicActionSheet, $timeout)
+  Controller = function($state, $localstorage, $scope, $http, $ionicActionSheet, $timeout)
   {
 
     $scope.showActionsheet = function() {    
        // Show the action sheet
       $ionicActionSheet.show({
          buttons: [
-           { text: 'Complete' }
+           { text: 'درباره ی ما' },
+           { text: 'تماس با ما' },
+           { text: 'خدمات ما برای شما' },
+           { text: 'دسه های مقالات' },
+           { text: 'به روز رسانی برنامه' }
          ],
-         destructiveText: 'Delete',
-         titleText: 'Update Todo',
+         // destructiveText: 'Delete',
+         titleText: 'قصد انجام چه کاری دارید؟',
          cancelText: 'Cancel',
          buttonClicked: function(index) {
+           switch (index)
+           {
+              case 0:
+                $state.go('aboutus');
+              break;
+              case 1:
+                $state.go('contactus');
+              break;
+              case 2:
+                $state.go('ourservices');
+              break;
+              case 3:
+                console.log('آپدیت مقالات');
+              break;
+              case 4:
+                console.log('آپدیت مقالات');
+              break;
+           }
+           console.log(index);
            return true;
          }
        });
