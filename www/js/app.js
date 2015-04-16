@@ -80,8 +80,13 @@
    * @param {[type]} $scope        [description]
    * @param {[type]} $http         [description]
    */
-  Controller = function($state, $localstorage, $scope, $http, $ionicActionSheet, $timeout)
+  Controller = function($state, $localstorage, $scope, $http, $ionicActionSheet, $timeout, $ionicSideMenuDelegate)
   {
+    //console.log($ionicSideMenuDelegate);
+    $scope.toggleSidemenu = function()
+    {
+      $ionicSideMenuDelegate.toggleLeft();
+    }
 
     $scope.showActionsheet = function() {    
        // Show the action sheet
