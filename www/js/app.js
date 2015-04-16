@@ -70,7 +70,7 @@
         }
       })
 
-      $urlRouterProvider.otherwise('/');
+      $urlRouterProvider.otherwise('/home');
     });
   },
   
@@ -84,21 +84,18 @@
   {
 
     $scope.showActionsheet = function() {    
+       // Show the action sheet
       $ionicActionSheet.show({
-        titleText: 'قصد انجام چه کاری را دارید؟',
-        cancelText: 'Cancel',
-        cancel: function() {
-          console.log('CANCELLED');
-        },
-        buttons: [
-          { text: 'دربار ما' },
-          { text: '<i class="icon ion-arrow-move"></i> Move' }          
-        ],
-        buttonClicked: function(index) {
-          alert('BUTTON CLICKED' + index);
-          return true; //Close the model?
-        }
-      });    
+         buttons: [
+           { text: 'Complete' }
+         ],
+         destructiveText: 'Delete',
+         titleText: 'Update Todo',
+         cancelText: 'Cancel',
+         buttonClicked: function(index) {
+           return true;
+         }
+       });
     };
 
     $scope.showCategories = function()
