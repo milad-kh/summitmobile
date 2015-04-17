@@ -265,6 +265,9 @@
         });
         $scope.posts = currentCategoryPosts;
       }
+      $timeout(function() {console.log('aaa')}, 4000);
+      console.log('bbb');      
+      $ionicSideMenuDelegate.toggleLeft();
     },
 
     $scope.showScope = function()
